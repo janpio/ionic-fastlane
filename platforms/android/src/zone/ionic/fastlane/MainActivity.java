@@ -17,7 +17,7 @@
        under the License.
  */
 
-package zone.ionic.example;
+package zone.ionic.fastlane;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
