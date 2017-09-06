@@ -1,1 +1,6 @@
+This app is a demonstration on how to use Fastlane to build an Ionic app.
 
+The process is documented at https://ionic.zone/fastlane.
+The source code of the app is available on Github at https://github.com/ionic-zone/ionic-fastlane.
+
+The app itself is pretty boring and doesn't do much.
