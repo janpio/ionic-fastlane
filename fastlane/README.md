@@ -35,6 +35,11 @@ xcode-select --install
 fastlane ios test
 ```
 Runs all the tests
+### ios ionic
+```
+fastlane ios ionic
+```
+Test Ionic build
 ### ios beta
 ```
 fastlane ios beta
@@ -56,6 +61,11 @@ Deploy a new version to the App Store
 fastlane android test
 ```
 Runs all the tests
+### android ionic
+```
+fastlane android ionic
+```
+Test Ionic build
 ### android beta
 ```
 fastlane android beta

@@ -27,6 +27,14 @@ platform :ios do
     scan
   end
 
+  desc "Test Ionic build"
+  lane :ionic do
+    ionic(
+      platform: 'ios',
+      release: false
+    )
+  end
+
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
@@ -73,6 +81,14 @@ platform :android do
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
+  end
+
+  desc "Test Ionic build"
+  lane :ionic do
+    ionic(
+      platform: 'android',
+      release: false
+    )
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"
