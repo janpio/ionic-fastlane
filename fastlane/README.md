@@ -40,6 +40,11 @@ Runs all the tests
 fastlane ios ionic
 ```
 Test Ionic build
+### ios hockey
+```
+fastlane ios hockey
+```
+Upload to Hockeyapp
 ### ios beta
 ```
 fastlane ios beta

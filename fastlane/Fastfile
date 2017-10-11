@@ -35,6 +35,18 @@ platform :ios do
     )
   end
 
+  desc "Upload to Hockeyapp"
+  lane :hockey do
+    ionic(
+      platform: 'ios',
+      release: false
+    )
+    hockey(
+      ipa: 'platforms/ios/build/device/FastlaneExample.ipa', # TODO get from ENV
+      api_token: ENV['HOCKEY_API_TOKEN']
+    )
+  end
+
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
