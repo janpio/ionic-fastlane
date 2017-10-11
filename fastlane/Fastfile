@@ -93,9 +93,25 @@ platform :android do
 
   desc "Upload to Hockeyapp"
   lane :hockey do
+    ionic(
+      platform: 'android',
+      release: false
+    )
     hockey(
-      apk: 'platforms/android/build/outputs/apk/android-debug.apk',
+      apk: 'platforms/android/build/outputs/apk/android-debug.apk', # TODO get from ENV
       api_token: ENV['HOCKEY_API_TOKEN']
+    )
+  end
+
+  desc "Upload to Google Play Alpha"
+  lane :alpha do
+    ionic(
+      platform: 'android',
+      release: true
+    )
+    supply(
+      track: 'alpha',
+      apk: 'platforms/android/build/outputs/apk/android-release.apk', # TODO get from ENV
     )
   end
 

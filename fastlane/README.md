@@ -71,6 +71,11 @@ Test Ionic build
 fastlane android hockey
 ```
 Upload to Hockeyapp
+### android alpha
+```
+fastlane android alpha
+```
+Upload to Google Play Alpha
 ### android beta
 ```
 fastlane android beta
