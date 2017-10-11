@@ -91,6 +91,14 @@ platform :android do
     )
   end
 
+  desc "Upload to Hockeyapp"
+  lane :hockey do
+    hockey(
+      apk: 'platforms/android/build/outputs/apk/android-debug.apk',
+      api_token: ENV['HOCKEY_API_TOKEN']
+    )
+  end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "assembleRelease")

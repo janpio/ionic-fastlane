@@ -66,6 +66,11 @@ Runs all the tests
 fastlane android ionic
 ```
 Test Ionic build
+### android hockey
+```
+fastlane android hockey
+```
+Upload to Hockeyapp
 ### android beta
 ```
 fastlane android beta
