@@ -27,23 +27,49 @@ platform :ios do
     scan
   end
 
-  desc "Test Ionic build"
+  desc "Test Ionic debug build"
   lane :ionic do
+    match
+    sh("printenv")
     ionic(
       platform: 'ios',
-      release: false
+      release: false,
+      type: 'development'
+    )
+  end
+
+  desc "Test Ionic release build"
+  lane :ionic2 do
+    match(type: 'appstore')
+    ionic(
+      platform: 'ios',
+      release: true
     )
   end
 
   desc "Upload to Hockeyapp"
   lane :hockey do
+    match
     ionic(
       platform: 'ios',
+      type: 'development',
       release: false
     )
     hockey(
       ipa: 'platforms/ios/build/device/FastlaneExample.ipa', # TODO get from ENV
       api_token: ENV['HOCKEY_API_TOKEN']
+    )
+  end
+
+  desc "Upload to Testflight"
+  lane :testflight do
+    match(type: 'appstore')    
+    ionic(
+      platform: 'ios',
+      release: true
+    )
+    pilot(
+      ipa: 'platforms/ios/build/device/FastlaneExample.ipa', # TODO get from ENV
     )
   end
 

@@ -39,12 +39,22 @@ Runs all the tests
 ```
 fastlane ios ionic
 ```
-Test Ionic build
+Test Ionic debug build
+### ios ionic2
+```
+fastlane ios ionic2
+```
+Test Ionic release build
 ### ios hockey
 ```
 fastlane ios hockey
 ```
 Upload to Hockeyapp
+### ios testflight
+```
+fastlane ios testflight
+```
+Upload to Testflight
 ### ios beta
 ```
 fastlane ios beta
