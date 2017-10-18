@@ -1,3 +1,8 @@
+PATH
+  remote: ../fastlane-plugin-ionic
+  specs:
+    fastlane-plugin-ionic (0.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,7 +62,6 @@ GEM
       xcodeproj (>= 1.5.0, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-ionic (0.3.4)
     gh_inspector (1.0.3)
     google-api-client (0.13.6)
       addressable (~> 2.5, >= 2.5.1)
@@ -135,7 +139,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane
-  fastlane-plugin-ionic
+  fastlane-plugin-ionic!
 
 BUNDLED WITH
    1.15.4
