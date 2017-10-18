@@ -75,6 +75,31 @@ platform :android do
     gradle(task: "test")
   end
 
+  desc "Build Debug Ionic"
+  lane :build_debug_ionic do
+    ionic(
+      platform: 'android',
+      release: false
+    )
+  end
+
+  desc "Build Debug Cordova"
+  lane :build_debug_cordova do
+    cordova(
+      platform: 'android',
+      release: false
+    )
+  end
+
+  desc "Build Debug Native"
+  lane :build_debug_native do
+    gradle(
+      task: 'assemble',
+      build_type: 'Debug',
+      project_dir: 'platforms/android'
+    )
+  end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "assembleRelease")
