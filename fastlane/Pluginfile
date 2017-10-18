@@ -2,5 +2,5 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-ionic'
 gem 'fastlane-plugin-cordova'
+gem 'fastlane-plugin-ionic', path: '../../fastlane-plugin-ionic' 
