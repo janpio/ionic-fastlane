@@ -7,6 +7,15 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
+  desc "Build Debug Debug Ionic"
+  lane :build_debug_debug_ionic do
+    ionic(
+      platform: 'ios',
+      prod: false,
+      release: false
+    )
+  end
+
   desc "Build Debug Ionic"
   lane :build_debug_ionic do
     ionic(
@@ -78,11 +87,21 @@ platform :android do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
+  desc "Build Debug Debug Ionic"
+  lane :build_debug_debug_ionic do
+    ionic(
+      platform: 'android',
+      release: false,
+      prod: false
+    )
+  end
+
   desc "Build Debug Ionic"
   lane :build_debug_ionic do
     ionic(
       platform: 'android',
-      release: false
+      release: false,
+      prod: true
     )
   end
 
