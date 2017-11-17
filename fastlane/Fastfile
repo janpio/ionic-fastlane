@@ -60,6 +60,36 @@ platform :ios do
     # You can also use other beta testing services here (run `fastlane actions`)
   end
 
+  desc "Build Release Ionic"
+  lane :build_release_ionic do
+    ionic(
+      platform: 'ios',
+      prod: true,
+      release: true
+    )
+  end
+
+  desc "Build Release Cordova"
+  lane :build_release_cordova do
+    cordova(
+      platform: 'ios',
+      release: true
+    )
+  end
+
+  desc "Build Release Native"
+  lane :build_release_native do
+    match
+    name = "FastlaneExample" # TODO Extract
+    xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
+    gym(
+      configuration: 'Release',
+      workspace: xcworkspacepath,
+      scheme: name #,
+      #export_method: 'development'
+    )
+  end
+
   desc "Deploy a new version to the App Store"
   lane :release do
     # match(type: "appstore")
