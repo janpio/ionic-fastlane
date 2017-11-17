@@ -138,10 +138,10 @@ platform :android do
       release: true,
       prod: true,
 
-      keystore_path: '../zaehlerstand.keystore',
+      keystore_path: '../Dropbox/zaehlerstand.keystore',
       keystore_alias: 'Zaehlerstand',
-      keystore_password: 'xyz',
-      key_password: 'xyz'
+      keystore_password: '123',
+      key_password: '123'
     )
   end
 
@@ -151,10 +151,10 @@ platform :android do
       platform: 'android',
       release: true,
 
-      keystore_path: '../Zaehlerstand.keystore',
+      keystore_path: '../Dropbox/Zaehlerstand.keystore',
       keystore_alias: 'Zaehlerstand',
-      keystore_password: 'xyz',
-      key_password: 'xyz'
+      keystore_password: '123',
+      key_password: '123'
     )
   end
 
@@ -163,7 +163,14 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: 'Release',
-      project_dir: 'platforms/android'
+      project_dir: 'platforms/android',
+      
+      properties: {
+        "android.injected.signing.store.file" => "../Dropbox/Zaehlerstand.keystore",
+        "android.injected.signing.store.password" => "123",
+        "android.injected.signing.key.alias" => "Zaehlerstand",
+        "android.injected.signing.key.password" => "123",
+      }
     )
   end
 
