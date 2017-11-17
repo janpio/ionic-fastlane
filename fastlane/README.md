@@ -30,6 +30,11 @@ xcode-select --install
 
 # Available Actions
 ## iOS
+### ios build_debug_debug_ionic
+```
+fastlane ios build_debug_debug_ionic
+```
+Build Debug Debug Ionic
 ### ios build_debug_ionic
 ```
 fastlane ios build_debug_ionic
@@ -61,6 +66,11 @@ Deploy a new version to the App Store
 ----
 
 ## Android
+### android build_debug_debug_ionic
+```
+fastlane android build_debug_debug_ionic
+```
+Build Debug Debug Ionic
 ### android build_debug_ionic
 ```
 fastlane android build_debug_ionic
