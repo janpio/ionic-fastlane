@@ -18,13 +18,41 @@ default_platform :ios
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    
-    
+
+
   end
 
   desc "Runs all the tests"
   lane :test do
     scan
+  end
+
+  desc "Build Debug Ionic"
+  lane :build_debug_ionic do
+    ionic(
+      platform: 'ios',
+      prod: true,
+      release: false
+    )
+  end
+
+  desc "Build Debug Cordova"
+  lane :build_debug_cordova do
+    cordova(
+      platform: 'ios',
+      release: false
+    )
+  end
+
+  desc "Build Debug Native"
+  lane :build_debug_native do
+    match(TODO development)
+    name = "FastlaneTest" # TODO Extract
+    xcodeprojpath = "platforms/ios/" + name + ".xcodeproj" # TODO Extract
+    gym(
+      configuration: 'Debug',
+      project: xcodeprojpath
+    )
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -109,6 +137,42 @@ platform :android do
     # You can also use other beta testing services here
   end
 
+  desc "Build Release Ionic"
+  lane :build_release_ionic do
+    ionic(
+      platform: 'android',
+      release: true,
+      prod: true,
+
+      keystore_path: '../zaehlerstand.keystore',
+      keystore_alias: 'Zaehlerstand',
+      keystore_password: 'xyz',
+      key_password: 'xyz'
+    )
+  end
+
+  desc "Build Release Cordova"
+  lane :build_release_cordova do
+    cordova(
+      platform: 'android',
+      release: true,
+
+      keystore_path: '../Zaehlerstand.keystore',
+      keystore_alias: 'Zaehlerstand',
+      keystore_password: 'xyz',
+      key_password: 'xyz'
+    )
+  end
+
+  desc "Build Release Native"
+  lane :build_release_native do
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      project_dir: 'platforms/android'
+    )
+  end
+
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "assembleRelease")
@@ -137,5 +201,5 @@ end
 # More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
 # All available actions: https://docs.fastlane.tools/actions
 
-# fastlane reports which actions are used. No personal data is recorded. 
+# fastlane reports which actions are used. No personal data is recorded.
 # Learn more at https://github.com/fastlane/fastlane#metrics
