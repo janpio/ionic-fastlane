@@ -38,12 +38,14 @@ platform :ios do
 
   desc "Build Debug Native"
   lane :build_debug_native do
-    match(TODO development)
-    name = "FastlaneTest" # TODO Extract
-    xcodeprojpath = "platforms/ios/" + name + ".xcodeproj" # TODO Extract
+    match
+    name = "FastlaneExample" # TODO Extract
+    xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
     gym(
       configuration: 'Debug',
-      project: xcodeprojpath
+      workspace: xcworkspacepath,
+      scheme: name,
+      export_method: 'development'
     )
   end
 
