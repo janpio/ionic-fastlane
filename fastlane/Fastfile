@@ -62,6 +62,7 @@ platform :ios do
 
   desc "Build Release Ionic"
   lane :build_release_ionic do
+    match(type: 'appstore')    
     ionic(
       platform: 'ios',
       prod: true,
@@ -71,6 +72,7 @@ platform :ios do
 
   desc "Build Release Cordova"
   lane :build_release_cordova do
+    match(type: 'appstore')
     cordova(
       platform: 'ios',
       release: true
@@ -79,7 +81,7 @@ platform :ios do
 
   desc "Build Release Native"
   lane :build_release_native do
-    match
+    match(type: 'appstore')
     name = "FastlaneExample" # TODO Extract
     xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
     gym(
