@@ -2,6 +2,10 @@ fastlane_version "2.54.4"
 
 default_platform :ios
 
+before_all do
+  ensure_git_status_clean
+end
+
 lane :cleanup do |options|
   artifacts = []
   artifacts << "." + ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
