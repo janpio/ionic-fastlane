@@ -14,11 +14,9 @@ lane :cleanup do |options|
   UI.verbose(artifacts)
   copy_artifacts(
     target_path: "artifacts/" + lane_context[SharedValues::LANE_NAME],
-    artifacts: artifacts
+    artifacts: artifacts,
+    keep_original: false
   )
-
-  #sh("cp ." + ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] + " \"../artifacts2/"+ lane_context[SharedValues::LANE_NAME]+"/foo.ipa\"") if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
-  #sh("cp ." + ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] + " \"../artifacts2/"+ lane_context[SharedValues::LANE_NAME]+"/foo.apk\"") if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
 
   # Reset the git repo to a clean state, but leave our artifacts in place
   reset_git_repo(
