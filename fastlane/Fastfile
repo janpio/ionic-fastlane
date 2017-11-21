@@ -213,8 +213,8 @@ platform :android do
 
       keystore_path: '../Dropbox/zaehlerstand.keystore',
       keystore_alias: 'Zaehlerstand',
-      keystore_password: '123',
-      key_password: '123'
+      keystore_password: ENV["KEYSTORE_PASSWORD"],
+      key_password: ENV["KEYSTORE_PASSWORD"]
     )
     cleanup
   end
@@ -227,8 +227,8 @@ platform :android do
 
       keystore_path: '../Dropbox/Zaehlerstand.keystore',
       keystore_alias: 'Zaehlerstand',
-      keystore_password: '123',
-      key_password: '123'
+      keystore_password: ENV["KEYSTORE_PASSWORD"],
+      key_password: ENV["KEYSTORE_PASSWORD"]
     )
     cleanup
   end
@@ -242,9 +242,9 @@ platform :android do
 
       properties: {
         "android.injected.signing.store.file" => "../Dropbox/Zaehlerstand.keystore",
-        "android.injected.signing.store.password" => "123",
+        "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
         "android.injected.signing.key.alias" => "Zaehlerstand",
-        "android.injected.signing.key.password" => "123",
+        "android.injected.signing.key.password" => ENV["KEYSTORE_PASSWORD"],
       }
     )
     cleanup
