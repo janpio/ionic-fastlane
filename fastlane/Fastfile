@@ -2,6 +2,26 @@ fastlane_version "2.54.4"
 
 default_platform :ios
 
+lane :cleanup do |options|
+  artifacts = []
+  artifacts << "." + ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
+  artifacts << "." + ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+  artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  UI.verbose(artifacts)
+  copy_artifacts(
+    target_path: "artifacts/" + lane_context[SharedValues::LANE_NAME],
+    artifacts: artifacts
+  )
+
+  #sh("cp ." + ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] + " \"../artifacts2/"+ lane_context[SharedValues::LANE_NAME]+"/foo.ipa\"") if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
+  #sh("cp ." + ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] + " \"../artifacts2/"+ lane_context[SharedValues::LANE_NAME]+"/foo.apk\"") if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+
+  # Reset the git repo to a clean state, but leave our artifacts in place
+  #reset_git_repo(
+  #  exclude: "artifacts"
+  #)
+end
+
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
@@ -15,6 +35,7 @@ platform :ios do
       prod: false,
       release: false
     )
+    cleanup
   end
 
   desc "Build Debug Ionic"
@@ -25,6 +46,7 @@ platform :ios do
       prod: true,
       release: false
     )
+    cleanup
   end
 
   desc "Build Debug Cordova"
@@ -34,6 +56,7 @@ platform :ios do
       type: 'development',
       release: false
     )
+    cleanup
   end
 
   desc "Build Debug Native"
@@ -47,6 +70,7 @@ platform :ios do
       scheme: name,
       export_method: 'development'
     )
+    cleanup
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -62,12 +86,13 @@ platform :ios do
 
   desc "Build Release Ionic"
   lane :build_release_ionic do
-    match(type: 'appstore')    
+    match(type: 'appstore')
     ionic(
       platform: 'ios',
       prod: true,
       release: true
     )
+    cleanup
   end
 
   desc "Build Release Cordova"
@@ -77,6 +102,7 @@ platform :ios do
       platform: 'ios',
       release: true
     )
+    cleanup
   end
 
   desc "Build Release Native"
@@ -90,6 +116,7 @@ platform :ios do
       scheme: name #,
       #export_method: 'development'
     )
+    cleanup
   end
 
   desc "Deploy a new version to the App Store"
@@ -131,6 +158,7 @@ platform :android do
       release: false,
       prod: false
     )
+    cleanup
   end
 
   desc "Build Debug Ionic"
@@ -140,6 +168,7 @@ platform :android do
       release: false,
       prod: true
     )
+    cleanup
   end
 
   desc "Build Debug Cordova"
@@ -148,6 +177,7 @@ platform :android do
       platform: 'android',
       release: false
     )
+    cleanup
   end
 
   desc "Build Debug Native"
@@ -157,6 +187,7 @@ platform :android do
       build_type: 'Debug',
       project_dir: 'platforms/android'
     )
+    cleanup
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"
@@ -180,6 +211,7 @@ platform :android do
       keystore_password: '123',
       key_password: '123'
     )
+    cleanup
   end
 
   desc "Build Release Cordova"
@@ -193,6 +225,7 @@ platform :android do
       keystore_password: '123',
       key_password: '123'
     )
+    cleanup
   end
 
   desc "Build Release Native"
@@ -201,7 +234,7 @@ platform :android do
       task: 'assemble',
       build_type: 'Release',
       project_dir: 'platforms/android',
-      
+
       properties: {
         "android.injected.signing.store.file" => "../Dropbox/Zaehlerstand.keystore",
         "android.injected.signing.store.password" => "123",
@@ -209,6 +242,7 @@ platform :android do
         "android.injected.signing.key.password" => "123",
       }
     )
+    cleanup
   end
 
   desc "Deploy a new version to the Google Play"

@@ -29,6 +29,14 @@ xcode-select --install
 </table>
 
 # Available Actions
+### cleanup
+```
+fastlane cleanup
+```
+
+
+----
+
 ## iOS
 ### ios build_debug_debug_ionic
 ```
@@ -57,6 +65,21 @@ fastlane ios beta
 Submit a new Beta Build to Apple TestFlight
 
 This will also make sure the profile is up to date
+### ios build_release_ionic
+```
+fastlane ios build_release_ionic
+```
+Build Release Ionic
+### ios build_release_cordova
+```
+fastlane ios build_release_cordova
+```
+Build Release Cordova
+### ios build_release_native
+```
+fastlane ios build_release_native
+```
+Build Release Native
 ### ios release
 ```
 fastlane ios release
