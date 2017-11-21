@@ -31,6 +31,16 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
+  lane :upgrade_xcode do
+    team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+    xcodeprojpath = "platforms/ios/FastlaneExample.xcodeproj"
+
+    upgrade_super_old_xcode_project(
+      path: xcodeprojpath,
+      team_id: team_id
+    )
+  end
+
   desc "Build Debug Debug Ionic"
   lane :build_debug_debug_ionic do
     ionic(

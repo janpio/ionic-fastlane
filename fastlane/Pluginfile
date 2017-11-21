@@ -4,3 +4,4 @@
 
 gem 'fastlane-plugin-cordova'
 gem 'fastlane-plugin-ionic', path: '../../fastlane-plugin-ionic' 
+gem 'fastlane-plugin-upgrade_super_old_xcode_project'

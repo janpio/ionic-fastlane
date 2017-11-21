@@ -38,6 +38,11 @@ fastlane cleanup
 ----
 
 ## iOS
+### ios upgrade_xcode
+```
+fastlane ios upgrade_xcode
+```
+
 ### ios build_debug_debug_ionic
 ```
 fastlane ios build_debug_debug_ionic

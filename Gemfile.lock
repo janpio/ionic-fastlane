@@ -63,6 +63,7 @@ GEM
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-cordova (1.0.0)
+    fastlane-plugin-upgrade_super_old_xcode_project (0.0.2)
     gh_inspector (1.0.3)
     google-api-client (0.13.6)
       addressable (~> 2.5, >= 2.5.1)
@@ -142,6 +143,7 @@ DEPENDENCIES
   fastlane
   fastlane-plugin-cordova
   fastlane-plugin-ionic!
+  fastlane-plugin-upgrade_super_old_xcode_project
 
 BUNDLED WITH
    1.15.4
