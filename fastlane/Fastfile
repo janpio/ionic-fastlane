@@ -8,8 +8,8 @@ end
 
 lane :cleanup do |options|
   artifacts = []
-  artifacts << "." + ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
-  artifacts << "." + ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+  artifacts << ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
+  artifacts << ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
   artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
   UI.verbose(artifacts)
   copy_artifacts(
