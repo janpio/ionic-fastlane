@@ -5,27 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.00185">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.010523">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.001335">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.009267">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: match" time="8.52531">
+      <testcase classname="fastlane.lanes" name="2: ensure_git_status_clean" time="0.04009">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: ionic" time="33.556085">
+      <testcase classname="fastlane.lanes" name="3: ionic" time="94.68955">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: pilot" time="328.152437">
+      <testcase classname="fastlane.lanes" name="4: Switch to android cleanup lane" time="0.011859">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: copy_artifacts" time="0.009392">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: reset_git_repo" time="21.526077">
         
       </testcase>
     
