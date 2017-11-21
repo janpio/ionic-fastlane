@@ -22,7 +22,7 @@ lane :cleanup do |options|
 
   # Reset the git repo to a clean state, but leave our artifacts in place
   reset_git_repo(
-    exclude: ['artifacts', 'node_modules'],
+    exclude: ['artifacts', 'node_modules', 'platforms', 'plugins', 'www'],
     skip_clean: true
   )
 end
