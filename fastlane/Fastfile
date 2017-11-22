@@ -3,7 +3,7 @@ fastlane_version "2.54.4"
 default_platform :ios
 
 before_all do
-  ensure_git_status_clean
+  #ensure_git_status_clean
 end
 
 lane :cleanup do |options|
@@ -21,10 +21,10 @@ lane :cleanup do |options|
   )
 
   # Reset the git repo to a clean state, but leave our artifacts in place
-  reset_git_repo(
-    exclude: ['artifacts', 'node_modules', 'platforms', 'plugins', 'www'] #,
+  #reset_git_repo(
+  #  exclude: ['artifacts', 'node_modules', 'platforms', 'plugins', 'www'] #,
     #skip_clean: true
-  )
+  #)
 end
 
 platform :ios do
