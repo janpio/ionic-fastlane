@@ -134,8 +134,8 @@ platform :ios do
     gym(
       configuration: 'Release',
       workspace: xcworkspacepath,
-      scheme: name #,
-      #export_method: 'development'
+      scheme: name,
+      codesigning_identity: 'iPhone Developer'
     )
     cleanup
   end
