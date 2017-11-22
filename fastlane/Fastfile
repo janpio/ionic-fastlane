@@ -8,6 +8,7 @@ end
 
 lane :cleanup do |options|
   artifacts = []
+  # TODO Add IONIC env variables when implemented
   artifacts << ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
   artifacts << ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
   artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
@@ -45,9 +46,9 @@ platform :ios do
   lane :build_debug_debug_ionic do
     ionic(
       platform: 'ios',
-      type: 'development',
       prod: false,
-      release: false
+      release: false,
+      type: 'development'
     )
     cleanup
   end
@@ -56,9 +57,9 @@ platform :ios do
   lane :build_debug_ionic do
     ionic(
       platform: 'ios',
-      type: 'development',
       prod: true,
-      release: false
+      release: false,
+      type: 'development'
     )
     cleanup
   end
@@ -67,8 +68,8 @@ platform :ios do
   lane :build_debug_cordova do
     cordova(
       platform: 'ios',
-      type: 'development',
-      release: false
+      release: false,
+      type: 'development'
     )
     cleanup
   end
