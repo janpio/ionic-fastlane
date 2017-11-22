@@ -12,7 +12,7 @@ keystore_alias = 'Zaehlerstand'
 keystore_password = ENV["KEYSTORE_PASSWORD"]
 
 before_all do
-  #ensure_git_status_clean
+  ensure_git_status_clean
 end
 
 lane :cleanup do |options|
@@ -37,7 +37,6 @@ lane :cleanup do |options|
   old_branch = git_branch
   branch = datetime + "_" + lane.tr(" ", "_")
   sh("git checkout -b " + branch)
-  sh("git checkout " + branch)
   sh("git add -A && git commit -m \"fastlane " + lane + "\"")
   sh("git checkout " + old_branch)
 
@@ -119,6 +118,7 @@ platform :ios do
 
   desc "Build Debug Native"
   lane :build_debug_native do
+    upgrade_xcode
     match
     gym(
       configuration: 'Debug',
@@ -131,6 +131,7 @@ platform :ios do
 
   desc "Build Release Native"
   lane :build_release_native do
+    upgrade_xcode
     match(type: 'appstore')
     gym(
       configuration: 'Release',
