@@ -35,10 +35,10 @@ platform :ios do
   lane :upgrade_xcode do
     team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
     xcodeprojpath = "platforms/ios/FastlaneExample.xcodeproj"
-
     upgrade_super_old_xcode_project(
       path: xcodeprojpath,
-      team_id: team_id
+      team_id: team_id,
+      use_automatic_signing: true
     )
   end
 
@@ -78,6 +78,12 @@ platform :ios do
   lane :build_debug_native do
     match
     name = "FastlaneExample" # TODO Extract
+    #team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+    #xcprojpath = "platforms/ios/" + name + ".xcodeproj" # TODO Extract
+    #enable_automatic_code_signing(
+    #  team_id: team_id,
+    #  path: xcprojpath
+    #)
     xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
     gym(
       configuration: 'Debug',
