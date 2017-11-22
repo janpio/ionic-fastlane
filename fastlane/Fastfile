@@ -119,7 +119,7 @@ platform :ios do
   desc "Build Debug Native"
   lane :build_debug_native do
     upgrade_xcode
-    match
+    match(type: 'development')
     gym(
       configuration: 'Debug',
       workspace: xcworkspacepath,

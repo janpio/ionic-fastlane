@@ -33,5 +33,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 
-artifacts/
+#artifacts/
 fastlane/report.xml
