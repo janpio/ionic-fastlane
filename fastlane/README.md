@@ -53,16 +53,31 @@ Build Debug Debug Ionic
 fastlane ios build_debug_ionic
 ```
 Build Debug Ionic
+### ios build_release_ionic
+```
+fastlane ios build_release_ionic
+```
+Build Release Ionic
 ### ios build_debug_cordova
 ```
 fastlane ios build_debug_cordova
 ```
 Build Debug Cordova
+### ios build_release_cordova
+```
+fastlane ios build_release_cordova
+```
+Build Release Cordova
 ### ios build_debug_native
 ```
 fastlane ios build_debug_native
 ```
 Build Debug Native
+### ios build_release_native
+```
+fastlane ios build_release_native
+```
+Build Release Native
 ### ios beta
 ```
 fastlane ios beta
@@ -70,21 +85,6 @@ fastlane ios beta
 Submit a new Beta Build to Apple TestFlight
 
 This will also make sure the profile is up to date
-### ios build_release_ionic
-```
-fastlane ios build_release_ionic
-```
-Build Release Ionic
-### ios build_release_cordova
-```
-fastlane ios build_release_cordova
-```
-Build Release Cordova
-### ios build_release_native
-```
-fastlane ios build_release_native
-```
-Build Release Native
 ### ios release
 ```
 fastlane ios release
@@ -104,36 +104,36 @@ Build Debug Debug Ionic
 fastlane android build_debug_ionic
 ```
 Build Debug Ionic
-### android build_debug_cordova
-```
-fastlane android build_debug_cordova
-```
-Build Debug Cordova
-### android build_debug_native
-```
-fastlane android build_debug_native
-```
-Build Debug Native
-### android beta
-```
-fastlane android beta
-```
-Submit a new Beta Build to Crashlytics Beta
 ### android build_release_ionic
 ```
 fastlane android build_release_ionic
 ```
 Build Release Ionic
+### android build_debug_cordova
+```
+fastlane android build_debug_cordova
+```
+Build Debug Cordova
 ### android build_release_cordova
 ```
 fastlane android build_release_cordova
 ```
 Build Release Cordova
+### android build_debug_native
+```
+fastlane android build_debug_native
+```
+Build Debug Native
 ### android build_release_native
 ```
 fastlane android build_release_native
 ```
 Build Release Native
+### android beta
+```
+fastlane android beta
+```
+Submit a new Beta Build to Crashlytics Beta
 ### android deploy
 ```
 fastlane android deploy

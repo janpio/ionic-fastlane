@@ -2,6 +2,15 @@ fastlane_version "2.54.4"
 
 default_platform :ios
 
+# define some variables
+name = "FastlaneExample"
+xcworkspacepath = "platforms/ios/" + name + ".xcworkspace"
+xcodeprojpath = "platforms/ios/" + name + ".xcodeproj"
+team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+keystore_path = '../Dropbox/zaehlerstand.keystore'
+keystore_alias = 'Zaehlerstand'
+keystore_password = ENV["KEYSTORE_PASSWORD"]
+
 before_all do
   #ensure_git_status_clean
 end
@@ -9,16 +18,28 @@ end
 lane :cleanup do |options|
   artifacts = []
   # TODO Add IONIC env variables when implemented
-  artifacts << ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] if ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
-  artifacts << ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] if ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
-  artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] if lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-  artifacts << lane_context[SharedValues::IPA_OUTPUT_PATH] if lane_context[SharedValues::IPA_OUTPUT_PATH]
-  UI.verbose(artifacts)
+  artifacts << ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
+  artifacts << ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+  artifacts << lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  artifacts << lane_context[SharedValues::IPA_OUTPUT_PATH]
+  artifacts.compact! # remove nils
+  #UI.verbose(artifacts)
   copy_artifacts(
     target_path: "artifacts/" + lane_context[SharedValues::LANE_NAME],
     artifacts: artifacts,
     keep_original: false
   )
+
+  # create git branch, commit everything, switch back
+  t = Time.now
+  datetime = t.strftime("%Y%m%d_%H%M%S")
+  lane = lane_context[SharedValues::LANE_NAME]
+  old_branch = git_branch
+  branch = datetime + "_" + lane.tr(" ", "_")
+  sh("git checkout -b " + branch)
+  sh("git checkout " + branch)
+  sh("git add -A && git commit -m \"fastlane " + lane + "\"")
+  sh("git checkout " + old_branch)
 
   # Reset the git repo to a clean state, but leave our artifacts in place
   #reset_git_repo(
@@ -33,8 +54,6 @@ platform :ios do
   end
 
   lane :upgrade_xcode do
-    team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
-    xcodeprojpath = "platforms/ios/FastlaneExample.xcodeproj"
     upgrade_super_old_xcode_project(
       path: xcodeprojpath,
       team_id: team_id,
@@ -53,6 +72,7 @@ platform :ios do
     cleanup
   end
 
+
   desc "Build Debug Ionic"
   lane :build_debug_ionic do
     ionic(
@@ -64,47 +84,6 @@ platform :ios do
     cleanup
   end
 
-  desc "Build Debug Cordova"
-  lane :build_debug_cordova do
-    cordova(
-      platform: 'ios',
-      release: false,
-      type: 'development'
-    )
-    cleanup
-  end
-
-  desc "Build Debug Native"
-  lane :build_debug_native do
-    match
-    name = "FastlaneExample" # TODO Extract
-    #team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
-    #xcprojpath = "platforms/ios/" + name + ".xcodeproj" # TODO Extract
-    #enable_automatic_code_signing(
-    #  team_id: team_id,
-    #  path: xcprojpath
-    #)
-    xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
-    gym(
-      configuration: 'Debug',
-      workspace: xcworkspacepath,
-      scheme: name,
-      export_method: 'development'
-    )
-    cleanup
-  end
-
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
-
   desc "Build Release Ionic"
   lane :build_release_ionic do
     match(type: 'appstore')
@@ -112,6 +91,17 @@ platform :ios do
       platform: 'ios',
       prod: true,
       release: true
+    )
+    cleanup
+  end
+
+
+  desc "Build Debug Cordova"
+  lane :build_debug_cordova do
+    cordova(
+      platform: 'ios',
+      release: false,
+      type: 'development'
     )
     cleanup
   end
@@ -126,11 +116,22 @@ platform :ios do
     cleanup
   end
 
+
+  desc "Build Debug Native"
+  lane :build_debug_native do
+    match
+    gym(
+      configuration: 'Debug',
+      workspace: xcworkspacepath,
+      scheme: name,
+      export_method: 'development'
+    )
+    cleanup
+  end
+
   desc "Build Release Native"
   lane :build_release_native do
     match(type: 'appstore')
-    name = "FastlaneExample" # TODO Extract
-    xcworkspacepath = "platforms/ios/" + name + ".xcworkspace" # TODO Extract
     gym(
       configuration: 'Release',
       workspace: xcworkspacepath,
@@ -138,6 +139,18 @@ platform :ios do
       codesigning_identity: 'iPhone Developer'
     )
     cleanup
+  end
+
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :beta do
+    # match(type: "appstore") # more information: https://codesigning.guide
+    gym # Build your app - more options available
+    pilot
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here (run `fastlane actions`)
   end
 
   desc "Deploy a new version to the App Store"
@@ -182,6 +195,7 @@ platform :android do
     cleanup
   end
 
+
   desc "Build Debug Ionic"
   lane :build_debug_ionic do
     ionic(
@@ -192,34 +206,6 @@ platform :android do
     cleanup
   end
 
-  desc "Build Debug Cordova"
-  lane :build_debug_cordova do
-    cordova(
-      platform: 'android',
-      release: false
-    )
-    cleanup
-  end
-
-  desc "Build Debug Native"
-  lane :build_debug_native do
-    gradle(
-      task: 'assemble',
-      build_type: 'Debug',
-      project_dir: 'platforms/android'
-    )
-    cleanup
-  end
-
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "assembleRelease")
-    crashlytics
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
   desc "Build Release Ionic"
   lane :build_release_ionic do
     ionic(
@@ -227,10 +213,20 @@ platform :android do
       release: true,
       prod: true,
 
-      keystore_path: '../Dropbox/zaehlerstand.keystore',
-      keystore_alias: 'Zaehlerstand',
-      keystore_password: ENV["KEYSTORE_PASSWORD"],
-      key_password: ENV["KEYSTORE_PASSWORD"]
+      keystore_path: keystore_path,
+      keystore_password: keystore_password,
+      keystore_alias: keystore_alias,
+      key_password: keystore_password
+    )
+    cleanup
+  end
+
+
+  desc "Build Debug Cordova"
+  lane :build_debug_cordova do
+    cordova(
+      platform: 'android',
+      release: false
     )
     cleanup
   end
@@ -241,10 +237,21 @@ platform :android do
       platform: 'android',
       release: true,
 
-      keystore_path: '../Dropbox/Zaehlerstand.keystore',
-      keystore_alias: 'Zaehlerstand',
-      keystore_password: ENV["KEYSTORE_PASSWORD"],
-      key_password: ENV["KEYSTORE_PASSWORD"]
+      keystore_path: keystore_path,
+      keystore_password: keystore_password,
+      keystore_alias: keystore_alias,
+      key_password: keystore_password
+    )
+    cleanup
+  end
+
+
+  desc "Build Debug Native"
+  lane :build_debug_native do
+    gradle(
+      task: 'assemble',
+      build_type: 'Debug',
+      project_dir: 'platforms/android'
     )
     cleanup
   end
@@ -257,13 +264,23 @@ platform :android do
       project_dir: 'platforms/android',
 
       properties: {
-        "android.injected.signing.store.file" => "../Dropbox/Zaehlerstand.keystore",
-        "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
-        "android.injected.signing.key.alias" => "Zaehlerstand",
-        "android.injected.signing.key.password" => ENV["KEYSTORE_PASSWORD"],
+        "android.injected.signing.store.file" => keystore_path,
+        "android.injected.signing.store.password" => keystore_password,
+        "android.injected.signing.key.alias" => keystore_alias,
+        "android.injected.signing.key.password" => keystore_password,
       }
     )
     cleanup
+  end
+
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "assembleRelease")
+    crashlytics
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
   end
 
   desc "Deploy a new version to the Google Play"
