@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>compileBitcode</key>
+    <false/>
+    <key>method</key>
+    <string>app-store</string>
+    <key>teamID</key>
+    <string>4Z338HBBX3</string>
+    <key>provisioningProfiles</key>
+    <dict>
+      <key>zone.ionic.fastlane</key>
+      <string>891577c1-8b3c-4609-86ab-fd266f097848</string>
+    </dict>
+    <key>signingStyle</key>
+    <string>manual</string>
+  </dict>
+</plist>
