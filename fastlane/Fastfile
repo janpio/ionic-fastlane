@@ -12,7 +12,7 @@ keystore_alias = 'Zaehlerstand'
 keystore_password = ENV["KEYSTORE_PASSWORD"]
 
 before_all do
-  ensure_git_status_clean
+  #ensure_git_status_clean
 end
 
 lane :cleanup do |options|
@@ -69,6 +69,22 @@ platform :ios do
       type: 'development'
     )
     cleanup
+  end
+
+
+  desc "Build Ionic"
+  lane :build_ionic do |options|
+    release = options[:release] || false
+    if release
+      match(type: 'appstore')
+    end
+    ionic(
+      platform: 'ios',
+      prod: true,
+      release: release,
+      type: (release ? 'app-store' : 'development')
+    )
+    #cleanup
   end
 
 

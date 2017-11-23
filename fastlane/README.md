@@ -48,6 +48,11 @@ fastlane ios upgrade_xcode
 fastlane ios build_debug_debug_ionic
 ```
 Build Debug Debug Ionic
+### ios build_ionic
+```
+fastlane ios build_ionic
+```
+Build Ionic
 ### ios build_debug_ionic
 ```
 fastlane ios build_debug_ionic
