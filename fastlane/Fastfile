@@ -83,6 +83,13 @@ platform :ios do
     cleanup
   end
 
+  lane :hockey_debug_ionic do
+    build_debug_ionic
+    hockey(
+      ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] # 'platforms/ios/build/' + name + '.ipa'
+    )
+  end
+
   desc "Build Release Ionic"
   lane :build_release_ionic do
     match(type: 'appstore')
