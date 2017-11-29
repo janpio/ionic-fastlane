@@ -63,6 +63,11 @@ fastlane ios hockey_debug_ionic
 fastlane ios build_release_ionic
 ```
 Build Release Ionic
+### ios hockey_release_ionic
+```
+fastlane ios hockey_release_ionic
+```
+
 ### ios build_debug_cordova
 ```
 fastlane ios build_debug_cordova
@@ -109,11 +114,21 @@ Build Debug Debug Ionic
 fastlane android build_debug_ionic
 ```
 Build Debug Ionic
+### android hockey_debug_ionic
+```
+fastlane android hockey_debug_ionic
+```
+
 ### android build_release_ionic
 ```
 fastlane android build_release_ionic
 ```
 Build Release Ionic
+### android hockey_release_ionic
+```
+fastlane android hockey_release_ionic
+```
+
 ### android build_debug_cordova
 ```
 fastlane android build_debug_cordova

@@ -12,7 +12,7 @@ keystore_alias = 'Zaehlerstand'
 keystore_password = ENV["KEYSTORE_PASSWORD"]
 
 before_all do
-  ensure_git_status_clean
+  #ensure_git_status_clean
 end
 
 lane :cleanup do |options|
@@ -81,7 +81,7 @@ platform :ios do
       release: false,
       type: 'development'
     )
-    cleanup
+    #cleanup
   end
 
   lane :hockey_debug_ionic do
@@ -99,7 +99,15 @@ platform :ios do
       prod: true,
       release: true
     )
-    cleanup
+    #cleanup
+  end
+
+  lane :hockey_release_ionic do
+    build_release_ionic
+    hockey(
+      ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'], # 'platforms/ios/build/' + name + '.ipa'
+      release_type: '1'
+    )
   end
 
 
@@ -212,7 +220,14 @@ platform :android do
       release: false,
       prod: true
     )
-    cleanup
+    #cleanup
+  end
+
+  lane :hockey_debug_ionic do
+    build_debug_ionic
+    hockey(
+      apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+    )
   end
 
   desc "Build Release Ionic"
@@ -227,9 +242,16 @@ platform :android do
       keystore_alias: keystore_alias,
       key_password: keystore_password
     )
-    cleanup
+    #cleanup
   end
 
+  lane :hockey_release_ionic do
+    build_release_ionic
+    hockey(
+      ipa: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'],
+      release_type: '3'
+    )
+  end
 
   desc "Build Debug Cordova"
   lane :build_debug_cordova do
