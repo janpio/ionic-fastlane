@@ -74,6 +74,7 @@ platform :ios do
 
   desc "Build Debug Ionic"
   lane :build_debug_ionic do
+    match(type: 'development')
     ionic(
       platform: 'ios',
       prod: true,

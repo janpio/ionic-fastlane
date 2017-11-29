@@ -53,16 +53,16 @@ Build Debug Debug Ionic
 fastlane ios build_debug_ionic
 ```
 Build Debug Ionic
-### ios build_release_ionic
-```
-fastlane ios build_release_ionic
-```
-Build Release Ionic
 ### ios hockey_debug_ionic
 ```
 fastlane ios hockey_debug_ionic
 ```
 
+### ios build_release_ionic
+```
+fastlane ios build_release_ionic
+```
+Build Release Ionic
 ### ios build_debug_cordova
 ```
 fastlane ios build_debug_cordova
