@@ -91,6 +91,15 @@ platform :ios do
     )
   end
 
+  lane :appcenter_debug_ionic do
+    debug
+    build_debug_ionic
+    appcenter_upload(
+      ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'],
+      app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + ''
+    )
+  end
+
   desc "Build Release Ionic"
   lane :build_release_ionic do
     match(type: 'appstore')
@@ -227,6 +236,14 @@ platform :android do
     build_debug_ionic
     hockey(
       apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+    )
+  end
+
+  lane :appcenter_debug_ionic do
+    build_debug_ionic
+    appcenter_upload(
+      apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'],
+      app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + ''
     )
   end
 

@@ -58,6 +58,11 @@ Build Debug Ionic
 fastlane ios hockey_debug_ionic
 ```
 
+### ios appcenter_debug_ionic
+```
+fastlane ios appcenter_debug_ionic
+```
+
 ### ios build_release_ionic
 ```
 fastlane ios build_release_ionic
@@ -117,6 +122,11 @@ Build Debug Ionic
 ### android hockey_debug_ionic
 ```
 fastlane android hockey_debug_ionic
+```
+
+### android appcenter_debug_ionic
+```
+fastlane android appcenter_debug_ionic
 ```
 
 ### android build_release_ionic
