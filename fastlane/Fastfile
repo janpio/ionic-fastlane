@@ -52,7 +52,7 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
-  lane :upgrade_xcode do
+  lane :upgrade_xcode_project do
     upgrade_super_old_xcode_project(
       path: xcodeprojpath,
       team_id: team_id,
@@ -150,7 +150,7 @@ platform :ios do
 
   desc "Build Debug Native"
   lane :build_debug_native do
-    upgrade_xcode
+    upgrade_xcode_project
     match(type: 'development')
     gym(
       configuration: 'Debug',
@@ -163,7 +163,7 @@ platform :ios do
 
   desc "Build Release Native"
   lane :build_release_native do
-    upgrade_xcode
+    upgrade_xcode_project
     match(type: 'appstore')
     gym(
       configuration: 'Release',
@@ -222,8 +222,8 @@ platform :android do
   lane :build_debug_debug_ionic do
     ionic(
       platform: 'android',
-      release: false,
-      prod: false
+      prod: false,
+      release: false
     )
     cleanup
   end
@@ -233,8 +233,8 @@ platform :android do
   lane :build_debug do
     ionic(
       platform: 'android',
-      release: false,
-      prod: true
+      prod: true,
+      release: false
     )
     #cleanup
   end
@@ -258,8 +258,8 @@ platform :android do
   lane :build_release do
     ionic(
       platform: 'android',
-      release: true,
       prod: true,
+      release: true,
 
       keystore_path: keystore_path,
       keystore_password: keystore_password,
