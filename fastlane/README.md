@@ -73,6 +73,11 @@ Build Release Ionic
 fastlane ios hockey_release_ionic
 ```
 
+### ios appcenter_release_ionic
+```
+fastlane ios appcenter_release_ionic
+```
+
 ### ios build_debug_cordova
 ```
 fastlane ios build_debug_cordova
@@ -137,6 +142,11 @@ Build Release Ionic
 ### android hockey_release_ionic
 ```
 fastlane android hockey_release_ionic
+```
+
+### android appcenter_release_ionic
+```
+fastlane android appcenter_release_ionic
 ```
 
 ### android build_debug_cordova
