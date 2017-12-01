@@ -73,7 +73,7 @@ platform :ios do
 
 
   desc "Build Debug Ionic"
-  lane :build_debug_ionic do
+  lane :build_debug do
     match(type: 'development')
     ionic(
       platform: 'ios',
@@ -84,15 +84,15 @@ platform :ios do
     #cleanup
   end
 
-  lane :hockey_debug_ionic do
-    build_debug_ionic
+  lane :hockey_debug do
+    build_debug
     hockey(
       ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] # 'platforms/ios/build/' + name + '.ipa'
     )
   end
 
-  lane :appcenter_debug_ionic do
-    build_debug_ionic
+  lane :appcenter_debug do
+    build_debug
     appcenter_upload(
       ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'],
       app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + ''
@@ -100,7 +100,7 @@ platform :ios do
   end
 
   desc "Build Release Ionic"
-  lane :build_release_ionic do
+  lane :build_release do
     match(type: 'appstore')
     ionic(
       platform: 'ios',
@@ -110,16 +110,16 @@ platform :ios do
     #cleanup
   end
 
-  lane :hockey_release_ionic do
-    build_release_ionic
+  lane :hockey_release do
+    build_release
     hockey(
       ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'], # 'platforms/ios/build/' + name + '.ipa'
       release_type: '1'
     )
   end
 
-  lane :appcenter_release_ionic do
-    build_release_ionic
+  lane :appcenter_release do
+    build_release
     appcenter_upload(
       ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'],
       app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + '-release'
@@ -230,7 +230,7 @@ platform :android do
 
 
   desc "Build Debug Ionic"
-  lane :build_debug_ionic do
+  lane :build_debug do
     ionic(
       platform: 'android',
       release: false,
@@ -239,15 +239,15 @@ platform :android do
     #cleanup
   end
 
-  lane :hockey_debug_ionic do
-    build_debug_ionic
+  lane :hockey_debug do
+    build_debug
     hockey(
       apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
     )
   end
 
-  lane :appcenter_debug_ionic do
-    build_debug_ionic
+  lane :appcenter_debug do
+    build_debug
     appcenter_upload(
       apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'],
       app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + ''
@@ -255,7 +255,7 @@ platform :android do
   end
 
   desc "Build Release Ionic"
-  lane :build_release_ionic do
+  lane :build_release do
     ionic(
       platform: 'android',
       release: true,
@@ -269,16 +269,16 @@ platform :android do
     #cleanup
   end
 
-  lane :hockey_release_ionic do
-    build_release_ionic
+  lane :hockey_release do
+    build_release
     hockey(
       apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'],
       release_type: '3'
     )
   end
 
-  lane :appcenter_release_ionic do
-    build_release_ionic
+  lane :appcenter_release do
+    build_release
     appcenter_upload(
       apk: ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'],
       app_name: name + '-' + lane_context[SharedValues::PLATFORM_NAME].to_s + '-release'
